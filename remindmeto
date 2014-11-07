@@ -1,0 +1,18 @@
+#!/usr/bin/env bash                                                                                                               
+#Create a new reminder via terminal                                                                                         
+#Command line arguments: 'reminder title'
+#Example run: $ ./remindmeto 'Get eggs from the shop'                                                                                                                                                                        
+
+osascript - "$1"<<END   
+set reminderTitle to "$1"
+tell app "Reminders"
+  tell list "Reminders" of default account
+    make new reminder with properties {name:reminderTitle}
+    do shell script "echo "&"Reminder ["&reminderTitle&"] successfully created" 
+  end tell
+end tell                                                            
+END
+
+#Closes the reminders app once finished, remove this if you want to keep it 
+#running 
+killall Reminders
